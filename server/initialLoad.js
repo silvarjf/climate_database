@@ -13,7 +13,9 @@ var metadataFile = config.get("metadataFile");
 var wgrib2 = config.get('wgrib2');
 
 
-// Function to scan the contents of a folder recursively
+/*
+ Function to scan the contents of a folder recursively
+  */
 var walkSync = function (dir, filelist) {
     var files = fs.readdirSync(dir);
 
@@ -31,22 +33,34 @@ var walkSync = function (dir, filelist) {
     return filelist
 }
 
+/***************************/
 
-// Fetch all the data in the Server
-// const fetchData = () => new Promise(resolve => cmd.get('wget -r -A grib2 -np -P ' + dataTempFolder + ' ' + urlLateData, function (err,data, stderr) {
-//     console.log(error)
-// }));
-// fetchData().then(console.log('oi'))
 
-if (!fs.existsSync(dataTempFolder)) {
+
+
+
+/*
+             Fetch data from the INPE website to a local temp folder and scan
+ */
+fs.existsSync(dataTempFolder)) {
     fs.mkdirSync(dataTempFolder)
 }
 
 cmd('wget -r -A grib2 -np -P ' + dataTempFolder + ' ' + urlLateData);
 
 
-
 var filelist = walkSync(dataTempFolder);
+
+/***************************/
+
+
+
+
+
+
+/*
+Slice only the desired coordinates and aggregate the files by year
+ */
 
 var minLat = config.get('minLat');
 var maxLat = config.get('maxLat');
@@ -63,6 +77,8 @@ var dates = []
 var year = ''
 var date = ''
 var re = /([\d]{8}).grib2/g;
+
+
 
 filelist.forEach(function (file) {
 
@@ -94,6 +110,16 @@ if (!fs.existsSync(dataFinalFolder)) {
 for (var year in filesPerYear) {
     cmd('cat ' + filesPerYear[year] + ' > ' + dataFinalFolder + year + '.grib2')
 }
+
+/*****************************************************/
+
+
+
+
+
+/*
+    Save metadata file and clean the environment
+ */
 
 var metadata = {
     "lastProcessingTime": (new Date()).toLocaleString('pt-BR'),
