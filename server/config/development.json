@@ -1,4 +1,14 @@
 {
+  "wgrib2": "/usr/local/bin/grib2/wgrib2/wgrib2",
   "urlLateData": "http://ftp.cptec.inpe.br/modelos/io/produtos/MERGE/GPM/DAILY/MERGE_GPM_LATE/201902/",
-  "dataTempFolder": "../data/temp"
+  "dataFinalFolder": "../data/years/",
+  "dataTempFolder": "../data/temp/",
+  "metadataFile": "../data/metadata.json",
+
+  "minLat":-34,
+  "maxLat":-27,
+  "stepLat":0.1,
+  "minLon":-57.9,
+  "maxLon":-49.4,
+  "stepLon":0.1
 }
