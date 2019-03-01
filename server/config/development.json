@@ -5,6 +5,7 @@
   "dataTempFolder": "../data/temp/",
   "userRequestsFolder": "../data/userRequests/",
   "metadataFile": "../data/metadata.json",
+  "listeningPort": 3000,
 
   "minLat":-34,
   "maxLat":-27,
